@@ -449,8 +449,8 @@ components:
 
 **Qué valido:**
 - Revisar el **Integration Flow / iFlow** en SAP Cloud Integration: URL del receptor, puerto, protocolo (HTTP vs HTTPS), y contexto de ruta base (`/api/v1` vs `/core/v1`).
-- Verificar que las **credenciales del Security Material** (certificados TLS, usuario técnico) apunten al ambiente correcto — es común que Sandbox tenga certificados auto-firmados que requieren importar el CA root en el *JKS (Java KeyStore)* de SAP.
-- Confirmar que la URL del Sandbox no fue cambiada recientemente (rotación de ambientes, nuevo hostname):
+- Verificar que las **credenciales del Security Material** (certificados TLS, usuario técnico) apunten al ambiente correcto — revisar certificados auto-firmados que requieren importar el CA root en el *JKS (Java KeyStore)* de SAP.
+- Confirmar que la URL del Sandbox no fue cambiada recientemente (rotación de ambientes, nuevo hostname, patch management, F5 Etc):
   ```
   # Ejemplo de error silencioso frecuente:
   PRODUCCIÓN: https://core.banco.com:8443
@@ -480,31 +480,14 @@ components:
 ### Resumen Ejecutivo de Coordinación
 
 ```
-┌──────────────────────┬─────────────────────────────────────┬──────────────────────────┐
-│ Validación           │ Área a Coordinar                    │ Tiempo Estimado          │
-├──────────────────────┼─────────────────────────────────────┼──────────────────────────┤
-│ 1. Red / Firewall    │ Infraestructura / Redes + Core Team │ 30 min – 2 h             │
-│ 2. Config SAP        │ SAP Basis / Integration + Core Team │ 15 – 45 min              │
-│ 3. Estado Sandbox    │ Operaciones TI Core / DevOps        │ 15 min (si está caído)   │
-└──────────────────────┴─────────────────────────────────────┴──────────────────────────┘
+┌──────────────────────┬─────────────────────────────────────┐
+│ Validación           │ Área a Coordinar                    │
+├──────────────────────┼─────────────────────────────────────┤
+│ 1. Red / Firewall    │ Infraestructura / Redes + Core Team │
+│ 2. Config SAP        │ SAP Basis / Integration + Core Team │
+│ 3. Estado Sandbox    │ Operaciones TI Core / DevOps        │ 
+└──────────────────────┴─────────────────────────────────────┘
 ```
 
 > 💡 **Acción inmediata recomendada:** Iniciar con la Validación 3 (¿está el servicio vivo?) en paralelo con la Validación 1 (¿hay conectividad?). Son las más rápidas de descartar y cubren el 80% de los casos de `Connection Refused`.
 
----
-
-## 🛠️ Stack Tecnológico del Ejercicio
-
-| Componente | Tecnología |
-|---|---|
-| Orquestador UX | Salesforce Service Cloud |
-| Middleware / ESB | SAP Integration Suite (Cloud Integration) |
-| Biometría | Facephi (SDK + REST API) |
-| Core Bancario | Sistema legado con API REST expuesta |
-| Estándar de Contrato | BIAN v10 + ISO 20022 (campos de identificación) |
-| Seguridad | OAuth 2.0 Client Credentials + TLS 1.2+ |
-| Resiliencia | Retry con backoff exponencial + Dead Letter Queue |
-
----
-
-*Documento elaborado como respuesta a evaluación técnica de Arquitectura de Integración Enterprise.*
