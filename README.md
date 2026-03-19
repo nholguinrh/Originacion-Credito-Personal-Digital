@@ -16,13 +16,15 @@
 ### Contexto del Flujo
 El flujo orquesta cuatro actores: 
 
-la App del cliente (a través de **Salesforce Service Cloud**), 
+1.                 Salesforce (Consumer): Orquestador de la experiencia de usuario.
 
-**SAP Integration Suite** como middleware, 
+2.                 SAP Integration Suite (Middleware): Capa de abstracción y seguridad.
 
-el **Servicio de Biometría (Facephi)**
+3.                 Servicio de Biometría (Tercero): Validación de identidad.
 
-**Core Bancario**.
+4.                 Core Bancario (Provider): Creación del registro de préstamo.
+
+
 
 ### Diagrama de Secuencia
 
