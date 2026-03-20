@@ -270,6 +270,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CreditApplicationResponse'
+        '202':
+          description: Aceptado para procesamiento asíncrono
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreditApplicationResponse'
         '400':
           description: Error de validación — datos de entrada inválidos.
           content:
